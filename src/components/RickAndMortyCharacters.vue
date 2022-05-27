@@ -107,15 +107,10 @@
             padding-right: 30px;
             line-height: 40px;
         }
-    } 
-
-    dt {
-        display: block;
     }
 
     .info__name {
-        font-size: 20px;
         font-weight: bold;
-        line-height: 60px;
+        line-height: 40px;
     }
 </style>
