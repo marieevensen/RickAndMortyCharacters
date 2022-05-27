@@ -1,30 +1,29 @@
 <template>
     <main class="rick-and-morty">
-        <img class="rick-and-morty__header" src="/images/rickandmorty.png" alt="Rick and Morty">
+        <img class="rick-and-morty__header" src="/images/rickandmorty.png" alt="Rick and Morty logo">
 
-        <div class="rick-and-morty__character">
-            <img class="character__image" :src="activeCharacter.image" alt="">
+        <section class="rick-and-morty__character">
+            <img class="character__image" :src="activeCharacter.image" alt="Bilde av karakteren">
 
-            <div class="character__info">
-                <div class="info__name">        
-                    {{ activeCharacter.name }}
-                </div>
+            <section class="character__info">
+                <h1 class="info__name">{{ activeCharacter.name }}</h1>
 
-                <h4>Status: {{ activeCharacter.status }}</h4>
+                <dl>
+                    <dt>Status: {{ activeCharacter.status }}</dt>
 
-                <h4>Species: {{ activeCharacter.species }}</h4>
-           
-                <h4>Gender: {{ activeCharacter.gender }}</h4>
-
-                <div v-if="activeCharacter.type.length > 0">
-                    <h4>Type: {{ activeCharacter.type }}</h4>
-                </div>
-      
-                <h4>Last known location: {{ activeCharacter.location.name }}</h4>
-      
-                <h4>Origin: {{ activeCharacter.origin.name }}</h4>
-            </div>
-        </div>
+                    <dt>Species: {{ activeCharacter.species }}</dt>
+                    
+                    <dt>Gender: {{ activeCharacter.gender }}</dt>
+                    
+                    <dt v-if="activeCharacter.type.length > 0">
+                        Type: {{ activeCharacter.type }}</dt>
+                    
+                    <dt>Last known location: {{ activeCharacter.location.name }}</dt>
+                    
+                    <dt>Origin: {{ activeCharacter.origin.name }}</dt>
+                </dl>
+            </section>
+        </section>
     </main>
 </template>
 
@@ -60,6 +59,13 @@
     }
 </script>
 
+<!-- Kommenterer script
+1 Henter ut info fra api
+2 Setter resultatet inn i en array kalt characters
+3 Setter karakteren aktiv, det er den som vises
+4 Plukker ut en random karakter ut av array, hver gang man refresher siden
+-->
+
 <style>
     .rick-and-morty {
         text-align: center;
@@ -76,7 +82,7 @@
     }
 
     .character__image {
-        height: 35vh;
+        height: 40vw;
         width: auto;
         margin-top: 20px;
         box-shadow: 0px 0px 10px 5px #85FF48;
@@ -103,8 +109,12 @@
         }
     } 
 
+    dt {
+        display: block;
+    }
+
     .info__name {
-        font-size: 45px;
+        font-size: 20px;
         font-weight: bold;
         line-height: 60px;
     }
