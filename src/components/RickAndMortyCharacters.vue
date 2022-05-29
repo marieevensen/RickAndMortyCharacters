@@ -2,11 +2,11 @@
     <main class="rick-and-morty">
         <img class="rick-and-morty__header" src="/images/rickandmorty.png" alt="Rick and Morty logo">
 
-        <section class="rick-and-morty__character">
-            <img class="character__image" :src="activeCharacter.image" alt="Bilde av karakteren">
+        <article class="rick-and-morty__character">
+            <img class="character__image" :src="activeCharacter.image" alt="Picture of the character">
 
             <section class="character__info">
-                <h1 class="info__name">{{ activeCharacter.name }}</h1>
+                <p class="info__name">{{ activeCharacter.name }}</p>
 
                 <dl>
                     <dt>Status: {{ activeCharacter.status }}</dt>
@@ -23,7 +23,7 @@
                     <dt>Origin: {{ activeCharacter.origin.name }}</dt>
                 </dl>
             </section>
-        </section>
+        </article>
     </main>
 </template>
 
@@ -60,10 +60,10 @@
 </script>
 
 <!-- Kommenterer script
-1 Henter ut info fra api
-2 Setter resultatet inn i en array kalt characters
-3 Setter karakteren aktiv, det er den som vises
-4 Plukker ut en random karakter ut av array, hver gang man refresher siden
+    1 Henter ut info fra api
+    2 Setter resultatet inn i en array kalt characters
+    3 Setter karakteren aktiv, det er den som vises
+    4 Plukker ut en random karakter ut av array, hver gang man refresher siden
 -->
 
 <style>
