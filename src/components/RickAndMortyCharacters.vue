@@ -1,12 +1,12 @@
 <template>
-    <main class="rick-and-morty">
+    <main class="rick-and-morty" v-if="!error">
         <img class="rick-and-morty__header" src="/images/rickandmorty.png" alt="Rick and Morty logo">
 
         <article class="rick-and-morty__character">
             <img class="character__image" :src="activeCharacter.image" alt="Picture of the character">
 
             <section class="character__info">
-                <p class="info__name">{{ activeCharacter.name }}</p>
+                <h1 class="info__name">{{ activeCharacter.name }}</h1>
 
                 <dl>
                     <dt>Status: {{ activeCharacter.status }}</dt>
@@ -14,9 +14,10 @@
                     <dt>Species: {{ activeCharacter.species }}</dt>
                     
                     <dt>Gender: {{ activeCharacter.gender }}</dt>
-                    
+
                     <dt v-if="activeCharacter.type.length > 0">
-                        Type: {{ activeCharacter.type }}</dt>
+                        Type: {{ activeCharacter.type }}
+                    </dt>
                     
                     <dt>Last known location: {{ activeCharacter.location.name }}</dt>
                     
@@ -25,6 +26,10 @@
             </section>
         </article>
     </main>
+
+    <div v-if="error">
+        {{ error }}
+    </div>
 </template>
 
 <script>
@@ -33,6 +38,7 @@
             return {
                 characters: [],
                 activeCharacter: {},
+                error: ''
             }
         },
 
@@ -44,12 +50,35 @@
             async fetchValue() {
                 const url = `https://rickandmortyapi.com/api/character`;
                 const respond = await fetch(url);
-                const { results } = await respond.json();
-                
-                this.characters = results;
-
-                this.setCharacterActive()
+                try {
+                    await this.handleRespond(respond);
+                } catch (error) {
+                    this.error = error.message;
+                }
             },
+             
+			async handleRespond(respond) {
+				if(respond.status >= 200 && respond.status < 300) {
+                    const result = await respond.json();
+                    this.characters = result.results;
+                     
+                    this.setCharacterActive()
+
+                    return true;
+					
+				} else {
+					if(respond.status === 404) {
+						throw new Error('Url ikke funnet!');
+					}
+					if(respond.status === 401) {
+						throw new Error('Ikke authorisert!');
+					}
+					if(respond.status > 500) {
+						throw new Error('Server error!');
+					}
+					throw new Error('Noe gikk galt!');
+				}
+			},
 
             setCharacterActive () {
                 const random = Math.floor(Math.random() * this.characters.length);
@@ -85,7 +114,7 @@
         height: 40vw;
         width: auto;
         margin-top: 20px;
-        box-shadow: 0px 0px 10px 5px #85FF48;
+        box-shadow: 0px 0px 10px 5px var(--details);
     }
 
     @media screen and (min-width: 1000px) {
@@ -112,5 +141,9 @@
     .info__name {
         font-weight: bold;
         line-height: 40px;
+    }
+
+    dt {
+        padding-top: 10px;
     }
 </style>
