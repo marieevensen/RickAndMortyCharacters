@@ -1,7 +1,7 @@
 # RickAndMortyCharacters
 
 
-In this project we learned about using API, and retrieve data from this external source.
+In this project I learned about using API, and retrieve data from this external source.
 I have used a Rick and Morty API, so everytime you refresh the site, it chooses a new random Rick and Morty character.
 If you only want one character, you can write the ID of the character in the end of the API.
 
